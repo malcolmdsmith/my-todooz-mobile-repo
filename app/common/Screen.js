@@ -30,12 +30,14 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     //backgroundColor: colors.white,
     backgroundColor: colors.screen_background,
+    zIndex: -1000,
   },
   view: {
     flex: 1,
     paddingLeft: isTablet || Platform.OS === "ios" ? 20 : 0,
     paddingRight: isTablet || Platform.OS === "ios" ? 20 : 0,
     backgroundColor: colors.screen_background,
+    paddingTop: 20,
   },
 });
 

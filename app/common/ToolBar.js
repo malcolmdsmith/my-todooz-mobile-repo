@@ -1,16 +1,26 @@
-import React, { Component, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
 
 import colors from "../config/colors";
+import ProjectPicker from "./ProjectPicker";
 
 export default ToolBar = () => {
-  return <View style={styles.container}></View>;
+  useEffect(() => {}, []);
+
+  return (
+    <View style={styles.container}>
+      <ProjectPicker />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
+    flexDirection: "row",
+    alignItems: "center",
+    height: 46,
     width: "100%",
     backgroundColor: colors.toolbar,
+    zIndex: 1000,
   },
 });

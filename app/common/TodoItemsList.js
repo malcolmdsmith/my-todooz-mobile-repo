@@ -1,37 +1,23 @@
 import React, { Component, useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getTodoItems } from "../api/todoItemsApi";
-import { getCurrentUser } from "../api/userApi";
-import TodoItem from "./TodoItem";
+import { loadTodoItems } from "../store/todoItems";
+import TodoItem from "../common/TodoItem";
 
 export default TodoItemsList = ({ width }) => {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const todoItems = useSelector((state) => state.entities.todoItems.list);
 
   useEffect(() => {
-    (async () => await loadList())();
+    dispatch(loadTodoItems(2, false));
   }, []);
 
-  const loadList = async () => {
-    try {
-      setLoading(true);
-      const user = await getCurrentUser();
-      if (!user) return;
-      const list = await getTodoItems(user.id);
-      console.info(list);
-      setItems(list);
-    } catch (err) {
-      console.log("...", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  console.info("items...", todoItems.length);
   return (
     <ScrollView>
       <View style={[styles.container, { width: width }]}>
-        {items.map((item, index) => (
+        {todoItems.map((item, index) => (
           <TodoItem key={index} index={index + 1} todoItem={item} />
         ))}
       </View>
