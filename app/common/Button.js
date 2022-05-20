@@ -2,18 +2,19 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 //import DropShadow from "react-native-drop-shadow";
-import colors from "../config/colors";
+import defaultStyles from "../config/styles";
 
 function AppButton({
   title,
   onPress,
   width,
-  color = colors.black,
-  bgColor = colors.primary,
+  color = defaultStyles.colors.black,
+  bgColor = defaultStyles.colors.primary,
   fontSize = 16,
   icon = "",
   iconAfter = false,
-  iconSize = 18,
+  iconSize = 14,
+  borderOnly = false,
 }) {
   const getButton = (iconAfter, title, icon) => {
     if (iconAfter)
@@ -34,9 +35,12 @@ function AppButton({
     // <DropShadow style={styles.shadowProp}>
     <TouchableOpacity
       style={[
+        defaultStyles.button,
         styles.button,
         { backgroundColor: bgColor },
         { width: width },
+        { borderWidth: borderOnly ? 2 : 0 },
+        { borderColor: borderOnly ? color : bgColor },
         { zIndex: -1000 },
       ]}
       onPress={onPress}
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 5,
     marginVertical: 5,
     marginRight: 5,
     marginLeft: 5,

@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
 
-import colors from "../../config/colors";
+import defaultStyles from "../../config/styles";
 import DropShadow from "../DropShadow";
 
 export default Picker = ({
@@ -30,7 +30,7 @@ export default Picker = ({
       {/* <Text>{title}</Text> */}
       <TouchableOpacity onPress={() => setShowList(!showList)}>
         <View style={styles.text} width={width}>
-          <Text style={styles.textx}>{selectedItem[textProperty]}</Text>
+          <Text style={[defaultStyles.text]}>{selectedItem[textProperty]}</Text>
           {showList ? (
             <MaterialCommunityIcons name="chevron-up" size={20} />
           ) : (
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     top: 2,
     marginLeft: 10,
     paddingLeft: 15,
-    backgroundColor: colors.list,
+    backgroundColor: defaultStyles.colors.list,
     zIndex: 1000,
     elevation: 1000,
   },
@@ -79,10 +79,10 @@ const styles = StyleSheet.create({
   text: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: colors.list,
+    backgroundColor: defaultStyles.colors.list,
     height: 34,
     borderRadius: 5,
-    borderColor: colors.border,
+    borderColor: defaultStyles.colors.border,
     borderWidth: 1,
     textAlign: "center",
     padding: 7,

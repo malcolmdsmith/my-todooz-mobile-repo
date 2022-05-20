@@ -2,29 +2,27 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Modal } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadProjects, getProjectsList } from "../store/projects";
+import { loadProjects, getPickerList } from "../store/projects";
 import { loadTodoItems } from "../store/todoItems";
 import { projectSelected } from "../store/ui";
-import Button from "./Button";
-import Picker from "./picker/Picker";
-import colors from "../config/colors";
+import BlueButton from "./buttons/BlueButton";
+import FlatListPicker from "./picker/FlatListPicker";
+import defaultStyles from "../config/styles";
 
 export default ProjectPicker = () => {
   const [showProjectEditor, setShowProjectEditor] = useState(false);
   const dispatch = useDispatch();
-  const projects = useSelector(getProjectsList);
+  const projects = useSelector(getPickerList);
   const selectedProject = useSelector(
     (state) => state.entities.ui.currentProject
   );
-
-  console.info("projs...", projects.length);
+  const user = useSelector((state) => state.entities.auth.user);
 
   useEffect(() => {
-    dispatch(loadProjects(2));
-  }, []);
+    if (user) dispatch(loadProjects(user && user.id));
+  }, [user]);
 
   const handleSelectedProject = (item) => {
-    console.info("selectedProjected...", item);
     dispatch(projectSelected(item));
     dispatch(loadTodoItems(2, false));
   };
@@ -36,24 +34,28 @@ export default ProjectPicker = () => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.text}>Project:</Text>
-        <Button
-          title="New"
-          fontSize={12}
-          bgColor={colors.toolbar}
-          color={colors.linkText}
-          onPress={handleNewProject}
-        />
-        <Picker
+        <Text style={[defaultStyles.text]}>Project: </Text>
+        <FlatListPicker
           items={projects}
           selectedItem={selectedProject}
           onSelectItem={handleSelectedProject}
           textProperty="project_name"
           valueProperty="project_id"
-          height={projects.length * 34}
-          listWidth={200}
-          width={180}
+          listHeight={250}
+          listWidth={280}
+          width={220}
+          height={40}
+          bgColor={defaultStyles.colors.list}
+          selectedBGColor={defaultStyles.colors.selectedListItem}
         />
+        <View style={{ marginLeft: 60 }}>
+          <BlueButton
+            title="New"
+            icon="plus"
+            width={100}
+            onPress={handleNewProject}
+          />
+        </View>
       </View>
       <Modal visible={showProjectEditor} transparent={true}>
         <View style={styles.modal}>
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 20,
+    //width: 440,
   },
   modal: {
     flex: 1,

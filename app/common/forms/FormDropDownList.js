@@ -1,50 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormikContext } from "formik";
 
-import Picker from "../Picker";
+import FlatListPicker from "../picker/FlatListPicker";
 import ErrorMessage from "./ErrorMessage";
+import colors from "../../config/colors";
 
-function AppFormPicker({
+function FormDropDownList({
   items,
   name,
   icon,
   numberOfColumns,
-  PickerItemComponent,
   placeholder,
   width,
+  height,
+  listWidth,
+  listHeight,
+  left,
   textProperty,
   valueProperty,
+  defaultItem = null,
   submitOnSelect = false,
-  onAddEntry,
+  //  onAddEntry,
 }) {
-  const { errors, setFieldValue, touched, values, handleSubmit } =
+  const { errors, setFieldValue, touched, values, handleSubmit, handleReset } =
     useFormikContext();
-  console.log("...", textProperty);
+  const [selectedItem, setSelectedItem] = useState(defaultItem);
+  //console.info("handleReset...", handleReset);
   return (
     <>
-      <Picker
+      <FlatListPicker
         items={items}
         icon={icon}
         numberOfColumns={numberOfColumns}
         onSelectItem={(item) => {
-          setFieldValue(name, item);
+          setSelectedItem(item);
+          setFieldValue(name, item[valueProperty]);
           if (submitOnSelect) handleSubmit();
         }}
-        onClearItem={() => {
-          setFieldValue(name, null);
-          handleSubmit();
-        }}
-        PickerItemComponent={PickerItemComponent}
         placeholder={placeholder}
-        selectedItem={values[name]}
+        selectedItem={selectedItem}
         width={width}
+        height={height}
+        listHeight={listHeight}
+        listWidth={listWidth}
+        left={left}
         textProperty={textProperty}
         valueProperty={valueProperty}
-        onAddEntry={onAddEntry}
+        // onAddEntry={onAddEntry}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />
     </>
   );
 }
 
-export default AppFormPicker;
+export default FormDropDownList;

@@ -15,10 +15,7 @@ const slice = createSlice({
       projects.loading = true;
     },
     projectsReceived: (projects, action) => {
-      projects.list = [
-        { project_id: 0, project_name: "[All]" },
-        ...action.payload,
-      ];
+      projects.list = action.payload;
       projects.loading = false;
       projects.lastFetch = Date.now();
     },
@@ -73,17 +70,19 @@ export const getProjects = createSelector(
   (projects) => projects.list.filter((project) => project)
 );
 
-export const getProjectsList = createSelector(
+export const getPickerList = createSelector(
   (state) => state.entities.projects,
-  (projects) =>
-    projects.list.filter((project) => ({
-      project_id: project.project_id,
-      project_name: project.project_name,
-    }))
+  (projects) => {
+    const projectsWithPrefix = [
+      { project_id: 0, project_name: "[All]" },
+      ...projects.list,
+    ];
+    // you could filter here as well before returning
+    return projectsWithPrefix;
+  }
 );
 
 export const addProject = (project) => (dispatch, getState) => {
-  console.info("project...", project);
   dispatch(
     apiCallBegan({
       url: "/projects",

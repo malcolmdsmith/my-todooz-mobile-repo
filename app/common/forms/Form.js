@@ -5,7 +5,8 @@ import { Formik } from "formik";
 import Button from "../Button";
 import SubmitButton from "./SubmitButton";
 import colors from "../../config/colors";
-
+import CloseButton from "../buttons/CloseButton";
+//
 function AppForm({
   initialValues,
   onSubmit,
@@ -14,12 +15,14 @@ function AppForm({
   resetValues,
   onHandleReset,
   showClearButton,
-  clearButtonTitle,
-  clearButtonIcon,
+  onClose,
+  onDelete,
+  clearButtonIcon = "trash-alt",
+  clearButtonTitle = "Clear",
   showSaveButton = false,
   saveButtonTitle = "Save",
   showCloseButton = false,
-  onClose,
+  showDeleteButton = false,
 }) {
   return (
     <Formik
@@ -39,6 +42,9 @@ function AppForm({
               <Button
                 title={clearButtonTitle}
                 icon={clearButtonIcon}
+                bgColor={colors.modal}
+                color={colors.red}
+                borderOnly={true}
                 onPress={() => {
                   props.resetForm({ values: resetValues });
                   onHandleReset();
@@ -46,14 +52,18 @@ function AppForm({
                 width={140}
               ></Button>
             )}
-            {showCloseButton && (
+            {showDeleteButton && (
               <Button
-                title="Close"
-                icon="window-close"
+                color={colors.red}
+                bgColor={colors.modal}
+                onPress={onDelete}
+                title="Delete"
+                icon="trash-alt"
+                borderOnly={true}
                 width={140}
-                onPress={onClose}
               />
             )}
+            {showCloseButton && <CloseButton onClose={onClose} />}
           </View>
         </>
       )}

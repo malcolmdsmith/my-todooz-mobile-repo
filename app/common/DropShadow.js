@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
       ios: {
         shadowColor: "black",
         shadowOpacity: 0.5,
-        shadowRadius: 5,
+        shadowRadius: 15,
       },
       android: {
         elevation: 4,

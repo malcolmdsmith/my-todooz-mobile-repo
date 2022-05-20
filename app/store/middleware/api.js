@@ -1,38 +1,49 @@
 import axios from "axios";
 import * as actions from "../api";
 import { baseUrl } from "../../config/settings";
+import { useDispatch, useSelector } from "react-redux";
 
 const api =
-  ({ dispatch }) =>
+  ({ dispatch, getState }) =>
   (next) =>
   async (action) => {
     //console.info("action...", action.type);
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
     const { url, method, data, onSuccess, onError } = action.payload;
-    console.info("url...", url, method, data);
     next(action);
 
-    // const result = await axios.request({
-    //   url: baseUrl + "/projects",
-    //   method: "post",
-    //   data: { project_name: "Test8", owner_id: 2 },
-    // });
-    // console.info("result axios...", result.data);
-    // console.info("axios test 2...", result.data);
+    const token = getState().entities.auth.token;
 
+    let response;
     try {
-      const response = await axios.request({
-        url: baseUrl + url,
-        method,
-        data,
-      });
+      if (token === "") {
+        response = await axios.request({
+          url: baseUrl + url,
+          method,
+          data,
+        });
+      } else {
+        response = await axios.request({
+          url: baseUrl + url,
+          method,
+          data,
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      }
+
       dispatch(actions.apiCallSuccess(response.data));
-      if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+      let respData = null;
+      if (method === "delete") respData = data;
+      else respData = response.data;
+
+      if (onSuccess) dispatch({ type: onSuccess, payload: respData });
+      //console.info("onSuccess...", onSuccess);
     } catch (error) {
-      console.info("error.message...", error);
-      dispatch(actions.apiCallFailed(error.message));
-      if (onError) dispatch({ type: onError, payload: error.message });
+      //console.info("error...", error.response.data.message, url);
+      dispatch(actions.apiCallFailed(error.response.data.message));
+      if (onError)
+        dispatch({ type: onError, payload: error.response.data.message });
     }
   };
 

@@ -25,12 +25,10 @@ function AppFormPicker({
         items={items}
         numberOfColumns={numberOfColumns}
         onSelectItem={(item) => {
-          console.info("onSelectItem...", item);
           setFieldValue(name, item);
           if (submitOnSelect) handleSubmit();
         }}
         onClearItem={() => {
-          console.info("ClearItem...");
           setFieldValue(name, null);
           handleSubmit();
         }}

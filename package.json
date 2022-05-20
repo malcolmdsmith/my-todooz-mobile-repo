@@ -16,20 +16,30 @@
     "@react-navigation/stack": "^6.2.1",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.1",
+    "date-fns": "^2.28.0",
     "expo": "~44.0.0",
-    "expo-constants": "^13.0.2",
+    "expo-constants": "~13.0.1",
+    "expo-file-system": "~13.1.4",
+    "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",
     "react": "17.0.1",
+    "react-devtools-core": "^4.14.0",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-device-detection": "^0.2.1",
     "react-native-web": "0.17.1",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "yup": "^0.32.11"
+  },
+  "overrides": {
+    "react-native": {
+      "react-devtools-core": "4.14.0"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -11,7 +11,7 @@ const AppTextInput = React.forwardRef(
       icon,
       showClearButton,
       onFieldClear,
-      textInputWidth,
+      textInputWidth = 0,
       bgColor = colors.formField,
       width = "100%",
       ...otherProps
@@ -29,12 +29,12 @@ const AppTextInput = React.forwardRef(
           />
         )}
         <TextInput
-          placeholderTextColor={defaultStyles.colors.medium}
+          placeholderTextColor={defaultStyles.colors.dark}
           style={[
             defaultStyles.text,
             { marginLeft: 3 },
             { backgroundColor: bgColor },
-            { width: textInputWidth == 0 ? "79%" : textInputWidth },
+            { width: textInputWidth === 0 ? "79%" : textInputWidth },
             { zIndex: -1000 },
           ]}
           {...otherProps}
@@ -44,7 +44,7 @@ const AppTextInput = React.forwardRef(
           <MaterialCommunityIcons
             name="close-octagon-outline"
             size={24}
-            color={defaultStyles.colors.medium}
+            color={defaultStyles.colors.dark}
             onPress={onFieldClear}
           />
         )}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingTop: 15,
     paddingLeft: 15,
-    paddingRight: 20,
+    paddingRight: 40,
     paddingBottom: 15,
     marginVertical: 10,
     zIndex: -1000,

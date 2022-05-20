@@ -2,6 +2,7 @@ import React from "react";
 import { useFormikContext } from "formik";
 
 import Button from "../Button";
+import colors from "../../config/colors";
 
 function SubmitButton({
   title,
@@ -16,7 +17,9 @@ function SubmitButton({
     <Button
       title={title}
       icon={icon}
-      color={color}
+      bgColor={colors.modal}
+      color={colors.green}
+      borderOnly={true}
       width={width}
       onPress={() => {
         handleSubmit();

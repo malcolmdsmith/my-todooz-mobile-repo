@@ -1,6 +1,7 @@
 import React, { forwardRef, useEffect } from "react";
 import { useFormikContext } from "formik";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+
 import TextInput from "../TextInput";
 import ErrorMessage from "./ErrorMessage";
 
@@ -12,7 +13,7 @@ const AppFormField = React.forwardRef(
       showClearButton = false,
       showLabelAbove = false,
       textInputWidth = 0,
-
+      defaultValue = "",
       ...otherProps
     },
     ref
@@ -28,13 +29,13 @@ const AppFormField = React.forwardRef(
             onChangeText={(text) => {
               setFieldValue(name, text);
             }}
-            value={values[name].toString()}
+            value={values[name] && values[name].toString()}
             width={width}
             {...otherProps}
             showLabelAbove={showLabelAbove}
             showClearButton={showClearButton}
             textInputWidth={textInputWidth}
-            onFieldClear={() => setFieldValue(name, "")}
+            onFieldClear={() => setFieldValue(name, defaultValue)}
             ref={ref}
           />
           <ErrorMessage error={errors[name]} visible={touched[name]} />
@@ -47,6 +48,8 @@ const AppFormField = React.forwardRef(
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
+    zIndex: -1000,
+    elevation: -1000,
   },
 });
 export default AppFormField;

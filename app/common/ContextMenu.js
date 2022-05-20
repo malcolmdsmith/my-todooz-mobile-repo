@@ -1,10 +1,16 @@
 import React, { Component, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default ContextMenu = () => {
+import ContextMenuItem from "./ContextMenuItem";
+
+export default ContextMenu = ({ items }) => {
   return (
     <TouchableOpacity style={styles.container}>
-      <Text style={styles.dots}>...</Text>
+      {items && items.length > 0
+        ? items.map((item, index) => (
+            <ContextMenuItem item={item} key={index} />
+          ))
+        : null}
     </TouchableOpacity>
   );
 };

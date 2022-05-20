@@ -3,6 +3,7 @@ import { View, StyleSheet, Button, Text } from "react-native";
 import * as Yup from "yup";
 import { isTablet } from "react-native-device-detection";
 import { Form, FormField, FormDropDownList } from "../common/forms";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addProject } from "../store/projects";
@@ -24,15 +25,14 @@ export default ProjectEditor = ({ onClose }) => {
   const [project_name, setProjectName] = useState("");
   const projects = useSelector((state) => state.entities.projects.list);
 
-  const handleSubmit = (formData) => {
-    //alert(selectedProject.project_name);
+  const handleSubmit = (data) => {
     dispatch(
       addProject({
-        project_name: formData.project_name,
+        project_name: data.project_name,
         owner_id: 2,
-        project_description: formData.project_description,
-        project_notes: formData.project_notes,
-        parent_project_id: formData.parent_project_id,
+        project_description: data.project_description,
+        project_notes: data.project_notes,
+        parent_project_id: data.parent_project_id,
       })
     );
   };
@@ -46,7 +46,12 @@ export default ProjectEditor = ({ onClose }) => {
   return (
     <DropShadow>
       <View style={styles.container}>
-        <Text style={[defaultStyles.colors.heading]}>New Project</Text>
+        <View>
+          <Text style={[defaultStyles.heading]}>
+            <FontAwesome5 name="project-diagram" size={18} />
+            {"  "} New Project
+          </Text>
+        </View>
         <Form
           initialValues={{
             project_name: "",
@@ -71,6 +76,20 @@ export default ProjectEditor = ({ onClose }) => {
             name="project_name"
             placeholder="Project Name"
           />
+          <FormDropDownList
+            items={projects}
+            name="parent_project_id"
+            placeholder="Parent Project"
+            icon="project-diagram"
+            textProperty="project_name"
+            valueProperty="project_id"
+            onAddEntry={false}
+            width="93%"
+            height={52}
+            listWidth={400}
+            listHeight={250}
+            left={-400}
+          />
           <FormField
             autoCorrect={false}
             icon="pencil"
@@ -87,15 +106,6 @@ export default ProjectEditor = ({ onClose }) => {
             multiline={true}
             height={120}
             numberOfLines={5}
-          />
-          <FormDropDownList
-            items={projects}
-            name="parent_project_id"
-            placeholder="Parent Project"
-            icon="project-diagram"
-            textProperty="project_name"
-            valueProperty="project_id"
-            onAddEntry={false}
           />
         </Form>
       </View>
