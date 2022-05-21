@@ -86,7 +86,7 @@ export default ProjectEditor = ({ onClose }) => {
             onAddEntry={false}
             width="93%"
             height={52}
-            listWidth={400}
+            listWidth={530}
             listHeight={250}
             left={-400}
           />

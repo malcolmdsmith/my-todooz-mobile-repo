@@ -5,8 +5,7 @@ import colors from "../config/colors";
 import ProjectPicker from "./ProjectPicker";
 import RedButton from "../common/buttons/RedButton";
 import TodoItemsEditor from "../components/TodoItemsEditor";
-import UserMenu from "./UserMenu";
-import { SortData } from "../utility/sort";
+import UserMenu from "../../common/UserMenu";
 
 export default ToolBar = () => {
   const [showTodoItemEditor, setShowTodoItemEditor] = useState(false);

@@ -38,6 +38,6 @@ export default {
     padding: 20,
   },
   button: {
-    fontSize: 14,
+    fontSize: 10,
   },
 };

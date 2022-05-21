@@ -41,8 +41,8 @@ export default ProjectPicker = () => {
           onSelectItem={handleSelectedProject}
           textProperty="project_name"
           valueProperty="project_id"
-          listHeight={250}
-          listWidth={280}
+          listHeight={300}
+          listWidth={380}
           width={220}
           height={40}
           bgColor={defaultStyles.colors.list}

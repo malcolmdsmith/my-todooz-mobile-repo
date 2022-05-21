@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as actions from "../api";
 import { baseUrl } from "../../config/settings";
-import { useDispatch, useSelector } from "react-redux";
 
 const api =
   ({ dispatch, getState }) =>
@@ -40,7 +39,7 @@ const api =
       if (onSuccess) dispatch({ type: onSuccess, payload: respData });
       //console.info("onSuccess...", onSuccess);
     } catch (error) {
-      //console.info("error...", error.response.data.message, url);
+      //console.info("error....", error.response, url);
       dispatch(actions.apiCallFailed(error.response.data.message));
       if (onError)
         dispatch({ type: onError, payload: error.response.data.message });

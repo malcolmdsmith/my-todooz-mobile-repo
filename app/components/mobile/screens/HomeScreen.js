@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import { View, StyleSheet, Button } from "react-native";
 
-import Screen from "./Screen";
+import Screen from "../../tablet/screens/Screen";
 import ListView from "../../ListView";
 import ProjectEditor from "../../ProjectEditor";
 

@@ -10,7 +10,7 @@ function AppButton({
   width,
   color = defaultStyles.colors.black,
   bgColor = defaultStyles.colors.primary,
-  fontSize = 16,
+  fontSize = 14,
   icon = "",
   iconAfter = false,
   iconSize = 14,

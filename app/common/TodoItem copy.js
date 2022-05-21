@@ -6,7 +6,6 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from "react-native";
-import colors from "../config/colors";
 
 import defaultStyles from "../config/styles";
 import { getDateString } from "../utility/dateFunctions";
@@ -34,22 +33,14 @@ export default TodoItem = ({ index, todoItem, onEditItem }) => {
           >
             {index}.
           </Text>
-          <View
-            style={{
-              backgroundColor: colors.white,
-              paddingLeft: 10,
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text style={defaultStyles.todoText}>{todoItem.todo_text}</Text>
-            {todoItem.due_date && (
-              <Text style={defaultStyles.todoDue}>
-                {getDateString(todoItem.due_date)}
-              </Text>
-            )}
-          </View>
+        </View>
+        <View>
+          <Text style={defaultStyles.todoText}>{todoItem.todo_text}</Text>
+          {todoItem.due_date && (
+            <Text style={defaultStyles.todoDue}>
+              {getDateString(todoItem.due_date)}
+            </Text>
+          )}
         </View>
       </View>
       <TouchableOpacity
@@ -81,11 +72,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   roundedCorners: {
-    flexDirection: "row",
     borderTopLeftRadius: 25,
     borderBottomLeftRadius: 25,
     paddingLeft: 20,
     marginRight: 10,
+    height: 90,
   },
   itemTextContainer: {
     flexDirection: "row",

@@ -2,9 +2,9 @@ import React from "react";
 import Constants from "expo-constants";
 import { StyleSheet, SafeAreaView, View, Platform } from "react-native";
 import { isTablet } from "react-native-device-detection";
-import colors from "../config/colors";
+import colors from "../../../config/colors";
 import { Fragment } from "react";
-import ToolBar from "./ToolBar";
+import ToolBar from "../../../common/ToolBar";
 //import Menu from "./Menu";
 
 function Screen({ children, style, navigation }) {

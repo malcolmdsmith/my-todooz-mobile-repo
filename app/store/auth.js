@@ -61,7 +61,6 @@ const auth_url = "/users";
 export const authenticateUser =
   (username, password) => (dispatch, getState) => {
     //const { lastFetch } = getState().entities.auth;
-
     //const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     //if (diffInMinutes < 1) return;
 

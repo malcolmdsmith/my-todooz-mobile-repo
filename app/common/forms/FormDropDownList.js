@@ -24,8 +24,9 @@ function FormDropDownList({
 }) {
   const { errors, setFieldValue, touched, values, handleSubmit, handleReset } =
     useFormikContext();
-  const [selectedItem, setSelectedItem] = useState(defaultItem);
-  //console.info("handleReset...", handleReset);
+  const [selectedItem, setSelectedItem] = useState(
+    items.filter((item) => item[valueProperty] === values[name])[0]
+  );
   return (
     <>
       <FlatListPicker

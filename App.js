@@ -4,10 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { isTablet } from "react-native-device-detection";
 
 import configureStore from "./app/store/configureStore";
 import TabletContainerNavigator from "./app/components/tablet/navigation/TabletContainerNavigator";
-import { baseUrl } from "./app/config/settings";
+import MobileContainerNavigator from "./app/components/mobile/navigation/MobileContainerNavigator";
 
 export default App = () => {
   const store = configureStore();
@@ -30,7 +31,11 @@ export default App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <NavigationContainer>
-            <TabletContainerNavigator />
+            {isTablet ? (
+              <TabletContainerNavigator />
+            ) : (
+              <MobileContainerNavigator />
+            )}
           </NavigationContainer>
         </PersistGate>
       </Provider>

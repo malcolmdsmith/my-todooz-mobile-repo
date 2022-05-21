@@ -51,7 +51,7 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
   //  const error = useSelector((state) => state.entities.todoItems.error);
 
   const handleSubmit = (data, { resetForm }) => {
-    //console.info("data...", data);
+    console.info("data...", data);
     if (data.item_id) {
       dispatch(updateTodoItem(data));
     } else {
@@ -140,7 +140,7 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
           <FormDropDownList
             items={projects}
             name="project_id"
-            defaultItem={projects[0]}
+            //defaultItem={null}
             placeholder="Project"
             icon="project-diagram"
             textProperty="project_name"
