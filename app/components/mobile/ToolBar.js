@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Modal, Image } from "react-native";
 
-import colors from "../config/colors";
-import ProjectPicker from "./ProjectPicker";
-import RedButton from "../common/buttons/RedButton";
-import TodoItemsEditor from "../components/TodoItemsEditor";
+import * as RootNavigation from "../mobile/navigation/RootNavigation";
+import colors from "../../config/colors";
+import RedButton from "../../common/buttons/RedButton";
 import UserMenu from "../../common/UserMenu";
+import routes from "./navigation/routes";
 
 export default ToolBar = () => {
-  const [showTodoItemEditor, setShowTodoItemEditor] = useState(false);
-
   useEffect(() => {}, []);
 
   return (
@@ -18,27 +16,20 @@ export default ToolBar = () => {
         <View style={styles.content}>
           <Image
             style={styles.icon}
-            source={require("../../assets/todoIcon.png")}
+            source={require("../../../assets/todoIcon.png")}
           />
-          <ProjectPicker />
           <RedButton
             title="New Todo"
             icon="plus"
             fontSize={10}
             width={150}
-            onPress={() => setShowTodoItemEditor(true)}
+            onPress={() =>
+              RootNavigation.navigate(routes.TODOITEM, { todoItem: null })
+            }
           />
         </View>
         <UserMenu />
       </View>
-      <Modal visible={showTodoItemEditor} transparent={true}>
-        <View style={styles.modal}>
-          <TodoItemsEditor
-            onClose={() => setShowTodoItemEditor(false)}
-            todoItem={null}
-          />
-        </View>
-      </Modal>
     </>
   );
 };

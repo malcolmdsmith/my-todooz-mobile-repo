@@ -17,6 +17,7 @@ import DropShadow from "../common/DropShadow";
 import defaultStyles from "../config/styles";
 import DatePicker from "../common/datePicker/DatePicker";
 import moment from "moment";
+import { ScreenWidth } from "../utility/constants";
 
 const validationSchema = Yup.object().shape({
   item_id: Yup.number().optional().label("Item Id"),
@@ -48,7 +49,9 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
   const dispatch = useDispatch();
   const projects = useSelector((state) => state.entities.projects.list);
   const user = useSelector((state) => state.entities.auth.user);
-  //  const error = useSelector((state) => state.entities.todoItems.error);
+  const [heading, setHeading] = useState(
+    todoItem === null ? "New Todo Item" : "Edit Todo Item"
+  );
 
   const handleSubmit = (data, { resetForm }) => {
     console.info("data...", data);
@@ -84,10 +87,9 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
     onClose();
   };
 
-  const getTodoItem = () => {
+  const InitialiseTodoItem = () => {
     let item = {};
-
-    if (todoItem === null)
+    if (todoItem === null) {
       item = {
         todo_text: "",
         project_id: projects[0].project_id,
@@ -96,15 +98,15 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
         priority: 3,
         owner_id: 0,
       };
-    else item = todoItem;
+    } else {
+      item = todoItem;
+    }
     return item;
   };
 
   const showDeleteButton = () => {
-    const item = getTodoItem();
-
+    const item = InitialiseTodoItem();
     if (item.item_id) return true;
-
     return false;
   };
 
@@ -115,99 +117,93 @@ export default TodoItemsEditor = ({ onClose, todoItem }) => {
   };
 
   return (
-    <DropShadow>
-      <View style={styles.container}>
-        <View>
-          <Text style={[defaultStyles.heading]}>
-            <FontAwesome5 name="list" size={18} />
-            {"  "} Todo Item
-          </Text>
-        </View>
-        <Form
-          initialValues={getTodoItem()}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-          showDeleteButton={showDeleteButton()}
-          showClearButton={!showDeleteButton()}
-          clearButtonIcon="trash-alt"
-          clearButtonTitle="Clear"
-          //onHandleReset={handleReset}
-          onClose={handleCloseButton}
-          onDelete={handleDeleteButton}
-          showSaveButton={true}
-          showCloseButton={true}
-        >
-          <FormDropDownList
-            items={projects}
-            name="project_id"
-            //defaultItem={null}
-            placeholder="Project"
-            icon="project-diagram"
-            textProperty="project_name"
-            valueProperty="project_id"
-            onAddEntry={false}
-            width="93%"
-            height={60}
-            listWidth={400}
-            listHeight={200}
-            left={-400}
-          />
+    <View style={styles.container}>
+      <View>
+        <Text style={[defaultStyles.heading]}>
+          <FontAwesome5 name="list" size={18} />
+          {"  "} {heading}
+        </Text>
+      </View>
+      <Form
+        initialValues={InitialiseTodoItem()}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+        showDeleteButton={showDeleteButton()}
+        showClearButton={!showDeleteButton()}
+        clearButtonIcon="trash-alt"
+        clearButtonTitle="Clear"
+        //onHandleReset={handleReset}
+        onClose={handleCloseButton}
+        onDelete={handleDeleteButton}
+        showSaveButton={true}
+        showCloseButton={true}
+      >
+        <FormDropDownList
+          items={projects}
+          name="project_id"
+          placeholder="Project"
+          icon="project-diagram"
+          textProperty="project_name"
+          valueProperty="project_id"
+          onAddEntry={false}
+          width="93%"
+          height={60}
+          listWidth={400}
+          listHeight={200}
+          left={-400}
+        />
+        <FormField
+          autoCorrect={false}
+          icon="pencil"
+          name="todo_text"
+          placeholder="Todo"
+          multiline={true}
+          height={120}
+        />
+        <PriorityPicker name="priority" />
+        <View style={styles.datePicker}>
           <FormField
             autoCorrect={false}
             icon="pencil"
-            name="todo_text"
-            placeholder="Todo"
-            multiline={true}
-            height={120}
+            name="due_date"
+            placeholder="Due Date"
+            width="75%"
+            showClearButton={true}
+            defaultValue={null}
           />
-          <PriorityPicker name="priority" />
-          <View style={styles.datePicker}>
-            <FormField
-              autoCorrect={false}
-              icon="pencil"
-              name="due_date"
-              placeholder="Due Date"
-              width={230}
-              showClearButton={true}
-              defaultValue={null}
-            />
-            <DatePicker
-              name="due_date"
-              showIcon={true}
-              //selectedDay={null}
-              onDaySelected={handleDatePicked}
-            />
-          </View>
-          <View style={styles.datePicker}>
-            <FormField
-              autoCorrect={false}
-              icon="pencil"
-              name="completed"
-              placeholder="Completed"
-              width={230}
-              showClearButton={true}
-              defaultValue={null}
-            />
-            <DatePicker
-              name="completed"
-              showIcon={true}
-              //selectedDay={null}
-              onDaySelected={handleDatePicked}
-            />
-          </View>
-          {/* <Text style={{ color: "red" }}>{error}</Text> */}
-        </Form>
-      </View>
-    </DropShadow>
+          <DatePicker
+            name="due_date"
+            showIcon={true}
+            onDaySelected={handleDatePicked}
+          />
+        </View>
+        <View style={styles.datePicker}>
+          <FormField
+            autoCorrect={false}
+            icon="pencil"
+            name="completed"
+            placeholder="Completed"
+            width="75%"
+            showClearButton={true}
+            defaultValue={null}
+          />
+          <DatePicker
+            name="completed"
+            showIcon={true}
+            onDaySelected={handleDatePicked}
+          />
+        </View>
+      </Form>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.modal,
-    width: isTablet ? "50%" : "90%",
-    borderRadius: 20,
-    paddingTop: 5,
+    width: isTablet ? "50%" : "100%",
+    borderRadius: isTablet ? 20 : 0,
+    paddingTop: isTablet ? 5 : 30,
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,

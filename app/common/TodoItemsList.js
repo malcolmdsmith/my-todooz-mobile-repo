@@ -6,7 +6,7 @@ import { loadTodoItems } from "../store/todoItems";
 import TodoItem from "../common/TodoItem";
 import { sortTodoItem } from "../utility/sort";
 
-export default TodoItemsList = ({ width }) => {
+export default TodoItemsList = ({ width, onEditItem }) => {
   const dispatch = useDispatch();
   let todoItems = useSelector((state) => state.entities.todoItems.list);
   const user = useSelector((state) => state.entities.auth.user);
@@ -18,8 +18,7 @@ export default TodoItemsList = ({ width }) => {
   }, [user]);
 
   const handleEditItem = (item) => {
-    setTodoItemToEdit(item);
-    setShowTodoItemEditor(true);
+    onEditItem(item);
   };
 
   const handleCloseEditor = () => {

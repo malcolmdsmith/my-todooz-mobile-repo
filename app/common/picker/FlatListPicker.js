@@ -87,7 +87,7 @@ export default FlatListPicker = ({
             ]}
           >
             <FlatList
-              //style={styles.list}
+              //style={styles.list}cc
               data={items}
               keyExtractor={(item, index) => index.toString()}
               numColumns={1}

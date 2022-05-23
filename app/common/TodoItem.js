@@ -1,27 +1,25 @@
 import React, { Component, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native";
-import colors from "../config/colors";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { isTablet } from "react-native-device-detection";
 
+import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 import { getDateString } from "../utility/dateFunctions";
+import { ScreenWidth } from "../utility/constants";
 
 export default TodoItem = ({ index, todoItem, onEditItem }) => {
   const getColor = () => {
-    //console.info("priority...", todoItem.priority);
     if (todoItem.priority === 1) return defaultStyles.colors.priority_1;
     if (todoItem.priority === 2) return defaultStyles.colors.priority_2;
     if (todoItem.priority === 3) return defaultStyles.colors.priority_3;
     return defaultStyles.colors.formField;
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.itemTextContainer}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onEditItem(todoItem)}
+    >
+      <View style={styles.itemContainer}>
         <View style={[styles.roundedCorners, { backgroundColor: getColor() }]}>
           <Text
             style={[
@@ -29,7 +27,7 @@ export default TodoItem = ({ index, todoItem, onEditItem }) => {
               styles.index,
               { backgroundColor: getColor() },
               { color: defaultStyles.colors.white },
-              { width: 42 },
+              { width: 34 },
             ]}
           >
             {index}.
@@ -39,8 +37,9 @@ export default TodoItem = ({ index, todoItem, onEditItem }) => {
               backgroundColor: colors.white,
               paddingLeft: 10,
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "center",
+              width: "90%",
             }}
           >
             <Text style={defaultStyles.todoText}>{todoItem.todo_text}</Text>
@@ -52,13 +51,13 @@ export default TodoItem = ({ index, todoItem, onEditItem }) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => onEditItem(todoItem)}
         style={{ width: 20 }}
       >
         <Text style={defaultStyles.todoDots}>...</Text>
-      </TouchableOpacity>
-    </View>
+      </TouchableOpacity> */}
+    </TouchableOpacity>
   );
 };
 
@@ -69,16 +68,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: defaultStyles.colors.todoItem,
     borderRadius: 25,
-    paddingRight: 20,
+    paddingRight: 30,
     marginBottom: 5,
-    //paddingLeft: 20,
+    width: isTablet ? "100%" : "90%",
   },
   index: {
     paddingLeft: 5,
-    paddingRight: 5,
+    paddingRight: 0,
     paddingTop: 20,
     paddingBottom: 20,
-    marginRight: 10,
+    marginRight: 5,
   },
   roundedCorners: {
     flexDirection: "row",
@@ -87,10 +86,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginRight: 10,
   },
-  itemTextContainer: {
+  itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    width: 320,
+    justifyContent: "flex-start",
   },
   text: {
     fontWeight: "bold",

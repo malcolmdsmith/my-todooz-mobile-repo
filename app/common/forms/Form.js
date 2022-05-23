@@ -36,7 +36,7 @@ function AppForm({
           {children}
           <View style={styles.buttons}>
             {showSaveButton && (
-              <SubmitButton title={saveButtonTitle} icon="smile" width={140} />
+              <SubmitButton title={saveButtonTitle} icon="smile" width="30%" />
             )}
             {showClearButton && (
               <Button
@@ -49,7 +49,7 @@ function AppForm({
                   props.resetForm({ values: resetValues });
                   onHandleReset();
                 }}
-                width={140}
+                width="30%"
               ></Button>
             )}
             {showDeleteButton && (
@@ -60,10 +60,10 @@ function AppForm({
                 title="Delete"
                 icon="trash-alt"
                 borderOnly={true}
-                width={140}
+                width="30%"
               />
             )}
-            {showCloseButton && <CloseButton onClose={onClose} />}
+            {showCloseButton && <CloseButton onClose={onClose} width="30%" />}
           </View>
         </>
       )}

@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import { isTablet } from "react-native-device-detection";
 import { Form, FormField, FormDropDownList } from "../common/forms";
 import { FontAwesome5 } from "@expo/vector-icons";
-
 import { useDispatch, useSelector } from "react-redux";
+
 import { addProject } from "../store/projects";
 import colors from "../config/colors";
 import DropShadow from "../common/DropShadow";
@@ -22,14 +22,14 @@ const validationSchema = Yup.object().shape({
 
 export default ProjectEditor = ({ onClose }) => {
   const dispatch = useDispatch();
-  const [project_name, setProjectName] = useState("");
   const projects = useSelector((state) => state.entities.projects.list);
+  const user = useSelector((state) => state.entities.auth.user);
 
   const handleSubmit = (data) => {
     dispatch(
       addProject({
         project_name: data.project_name,
-        owner_id: 2,
+        owner_id: user.id,
         project_description: data.project_description,
         project_notes: data.project_notes,
         parent_project_id: data.parent_project_id,

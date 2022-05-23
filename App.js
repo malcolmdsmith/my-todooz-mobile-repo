@@ -6,6 +6,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { isTablet } from "react-native-device-detection";
 
+import { navigationRef } from "./app/components/mobile/navigation/RootNavigation";
 import configureStore from "./app/store/configureStore";
 import TabletContainerNavigator from "./app/components/tablet/navigation/TabletContainerNavigator";
 import MobileContainerNavigator from "./app/components/mobile/navigation/MobileContainerNavigator";
@@ -30,7 +31,7 @@ export default App = () => {
     <>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             {isTablet ? (
               <TabletContainerNavigator />
             ) : (

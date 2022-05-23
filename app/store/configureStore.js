@@ -9,8 +9,8 @@ import toast from "./middleware/toast";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  //whitelist: ["auth"],
-  blacklist: ["projects"],
+  whitelist: ["entities/auth"],
+  //blacklist: ["projects"],
 };
 
 export default function () {

@@ -46,7 +46,14 @@ function AppButton({
       onPress={onPress}
     >
       {icon != "" ? (
-        <Text style={[styles.text, { fontSize: fontSize }, { color: color }]}>
+        <Text
+          style={[
+            styles.text,
+            { fontSize: fontSize },
+            { color: color },
+            //{ backgroundColor: "#CCC" },
+          ]}
+        >
           {getButton(iconAfter, title, icon)}
         </Text>
       ) : (

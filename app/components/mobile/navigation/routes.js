@@ -1,3 +1,8 @@
+export default Object.freeze({
+  HOME: "Home",
+  TODOITEM: "TodoItem",
+});
+
 const routes = [
   {
     name: "HOME",
@@ -5,10 +10,13 @@ const routes = [
     route: "Home",
   },
   {
+    name: "TODOITEM",
+    description: "TodoItem",
+    route: "TodoItem",
+  },
+  {
     name: "SEARCH_TRANSACTIONS",
     description: "SEARCH TRANSACTIONS",
     route: "SearchTransactions",
   },
 ];
-
-export default routes;

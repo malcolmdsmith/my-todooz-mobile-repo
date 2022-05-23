@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Modal, Image } from "react-native";
 
-import colors from "../config/colors";
-import ProjectPicker from "./ProjectPicker";
-import RedButton from "../common/buttons/RedButton";
-import TodoItemsEditor from "../components/TodoItemsEditor";
-import UserMenu from "./UserMenu";
-import { SortData } from "../utility/sort";
+import colors from "../../config/colors";
+import ProjectPicker from "../../common/ProjectPicker";
+import RedButton from "../../common/buttons/RedButton";
+import TodoItemsEditor from "../TodoItemsEditor";
+import UserMenu from "../../common/UserMenu";
+import { SortData } from "../../utility/sort";
 
 export default ToolBar = () => {
   const [showTodoItemEditor, setShowTodoItemEditor] = useState(false);
@@ -19,7 +19,7 @@ export default ToolBar = () => {
         <View style={styles.content}>
           <Image
             style={styles.icon}
-            source={require("../../assets/todoIcon.png")}
+            source={require("../../../assets/todoIcon.png")}
           />
           <ProjectPicker />
           <RedButton

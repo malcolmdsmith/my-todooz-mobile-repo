@@ -27,6 +27,7 @@ function FormDropDownList({
   const [selectedItem, setSelectedItem] = useState(
     items.filter((item) => item[valueProperty] === values[name])[0]
   );
+  console.info("values[name]...", values[name], selectedItem, items);
   return (
     <>
       <FlatListPicker
